@@ -1,0 +1,34 @@
+$ConnectToDB = "Data Source = de-team.database.windows.net;
+Initial Catalog = DE-Team-AizhanGabjanova-DB;
+user = de-team-admin;
+password = DEpassword0"
+
+$SqlConnection = new-object system.data.SqlClient.SQLConnection($ConnectToDB)
+$CreateTables = @"
+DROP TABLE IF EXISTS Customers;
+CREATE TABLE Customers
+  (
+     CustomerID BIGINT IDENTITY,
+     FirstName VARCHAR(100),
+     LastName VARCHAR(100)
+  );
+DROP TABLE IF EXISTS Products;
+CREATE TABLE Products
+ (
+     ProductID BIGINT IDENTITY,
+     ProdName VARCHAR(100)
+ );
+"@
+
+$SqlCommand = new-object system.data.sqlclient.sqlcommand($CreateTables, $SqlConnection)
+$SqlConnection.Open()
+$Sqlcommand.ExecuteNonQuery()
+
+$InsertToTable = @"
+INSERT INTO Customers VALUES('Aizhan','Gabjanova');
+INSERT INTO Products VALUES('Bread');
+"@
+
+$SqlCommand1 = new-object system.data.sqlclient.sqlcommand($InsertToTable, $SqlConnection)
+
+$Sqlcommand1.ExecuteNonQuery()
