@@ -1,0 +1,26 @@
+PS C:\WINDOWS\system32> $ConnectToDB = "Data Source = de-team.database.windows.net;
+>> Initial Catalog = DE-Team-AizhanGabjanova-DB;
+>> user = de-team-admin;
+>> password = DEpassword0"
+PS C:\WINDOWS\system32> $SqlConnection = new-object system.data.SqlClient.SQLConnection($ConnectToDB)
+PS C:\WINDOWS\system32> $CreateTables = @"
+>> Create table Customers (
+>> CustName text,
+>> Age int);
+>>
+>> Create table Products (
+>> ProdName text,
+>> Price int);
+>> "@
+PS C:\WINDOWS\system32> $SqlCommand = new-object system.data.sqlclient.sqlcommand($CreateTables, $SqlConnection)
+PS C:\WINDOWS\system32> $SqlConnection.Open()
+PS C:\WINDOWS\system32> $Sqlcommand.ExecuteNonQuery()
+-1
+PS C:\WINDOWS\system32> $InsertToTable = @"
+>> Insert into Customers values ('Aizhan', 23);
+>> Insert into Products values ('Bread', 100)
+>> "@
+PS C:\WINDOWS\system32> $SqlCommand1 = new-object system.data.sqlclient.sqlcommand($InsertToTable, $SqlConnection)
+
+PS C:\WINDOWS\system32> $Sqlcommand1.ExecuteNonQuery()
+2
